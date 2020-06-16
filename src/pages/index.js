@@ -1,20 +1,49 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
-import { RichText } from "prismic-reactjs"
+import SliceZone from "../components/sliceZone"
 
 export const query = graphql`
   {
     prismic {
-      _allDocuments {
+      allHomepages {
         edges {
           node {
-            __typename
-            ... on PRISMIC_Homepage {
-              hero_title
+            body {
+              ... on PRISMIC_HomepageBodyHero {
+                type
+                label
+                primary {
+                  hero_subheading
+                  hero_title
+                  hero_image
+                }
+              }
+              ... on PRISMIC_HomepageBodyCall_to_action_grid {
+                type
+                label
+                primary {
+                  grid_title
+                }
+                fields {
+                  content
+                  featured_image
+                  call_to_action_title
+                  button_label
+                  button_destination {
+                    _linkType
+                    ... on PRISMIC_Page {
+                      page_title
+                      content
+                      _meta {
+                        uid
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -24,30 +53,11 @@ export const query = graphql`
 `
 
 const IndexPage = props => {
-  const { data } = props
-
-  console.log(props)
-
-  // const response = data.prismic._allDocuments.edges[0].node.hero_title[0].text
-  const response = data.prismic._allDocuments.edges[0].node.hero_title
-
-  // const pageTitle = data.prismic.allPages.edges[0].node.hero_title
-
-  console.log(response)
-
-  if (!response) return null
-
+  // console.log(props)
   return (
     <Layout>
       <SEO title="Home" />
-      <RichText render={response} />
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>
-      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-        <Image />
-      </div>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
+      <SliceZone body={props.data.prismic.allHomepages.edges[0].node.body} />
     </Layout>
   )
 }

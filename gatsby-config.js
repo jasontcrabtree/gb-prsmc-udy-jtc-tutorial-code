@@ -8,7 +8,15 @@ module.exports = {
     {
       resolve: `gatsby-source-prismic-graphql`,
       options: {
-        repositoryName: "prismicstudy",
+        repositoryName: "gb-ps-ud-jtc",
+        pages: [
+          {
+            type: "Page", // has to be a capital p for custom (page) types from prismic
+            match: "/:uid", // sets the slug based on slug uid. /:uid references the prismic uid field, based on the API ID,
+            path: "/", // can be used for nested slugs too
+            component: require.resolve("./src/components/templates/page.js"),
+          },
+        ],
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -30,7 +38,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/star.svg`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
