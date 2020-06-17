@@ -1,8 +1,11 @@
-exports.linkResolver = function linkResolver(doc) {
-  // Route for blog posts
-  if (doc.type === "post") {
-    return "/blog/" + doc.uid
+const linkResolver = doc => {
+  // Route for pages posts
+  if (doc.type === "page") {
+    return `/${doc.uid}`
   }
+
   // Homepage route fallback
   return "/"
 }
+
+export default linkResolver

@@ -21,6 +21,11 @@ const navigationQuery = graphql`
                     uid
                   }
                 }
+                ... on PRISMIC_Contact_page {
+                  _meta {
+                    uid
+                  }
+                }
               }
             }
           }
@@ -32,15 +37,26 @@ const navigationQuery = graphql`
 
 const Main = styled.main`
   margin: 0 auto;
-  /* max-width: 640px; */
-  padding: 0px 0px 4.8rem;
+  max-width: 880px;
+  padding: 1rem 1rem 4.8rem;
 `
 
 const Nav = styled.nav`
   margin: 0px auto;
-  max-width: 640px;
+  max-width: 880px;
   display: flex;
   padding: 2.4rem 2.4rem;
+
+  .home-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .wordmark {
+    padding-bottom: 8px !important;
+  }
 `
 
 const NavList = styled.ul`
@@ -55,8 +71,8 @@ const Wordmark = styled.span`
 const Logo = styled.span`
   margin-right: 4px;
   vertical-align: center;
-  height: 26px;
-  width: 26px;
+  height: 20px;
+  width: 20px;
 `
 
 const NavLink = styled.li`
@@ -65,6 +81,8 @@ const NavLink = styled.li`
 `
 
 const Layout = ({ children }) => {
+  if (!children) return null
+
   return (
     <>
       <Nav>
@@ -74,15 +92,17 @@ const Layout = ({ children }) => {
             // console.log(data)
             return (
               <>
-                <Logo>
-                  <img
-                    src={data.prismic.allNavigations.edges[0].node.logo.url}
-                    alt={data.prismic.allNavigations.edges[0].node.logo.alt}
-                  />
-                </Logo>
-                <Wordmark>
-                  {data.prismic.allNavigations.edges[0].node.wordmark}
-                </Wordmark>
+                <Link to="/" className="home-link">
+                  <Logo>
+                    <img
+                      src={data.prismic.allNavigations.edges[0].node.logo.url}
+                      alt={data.prismic.allNavigations.edges[0].node.logo.alt}
+                    />
+                  </Logo>
+                  <Wordmark class="wordmark">
+                    {data.prismic.allNavigations.edges[0].node.wordmark}
+                  </Wordmark>
+                </Link>
                 <NavList>
                   {data.prismic.allNavigations.edges[0].node.navigation_links.map(
                     link => {

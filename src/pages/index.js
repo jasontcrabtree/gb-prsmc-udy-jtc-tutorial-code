@@ -25,7 +25,7 @@ export const query = graphql`
                 type
                 label
                 primary {
-                  grid_title
+                  section_title
                 }
                 fields {
                   content
@@ -44,6 +44,18 @@ export const query = graphql`
                   }
                 }
               }
+              ... on PRISMIC_HomepageBodyPrice_list {
+                type
+                fields {
+                  price_type
+                  price_per_month
+                  price_list_title
+                  price_list_description
+                }
+                primary {
+                  title
+                }
+              }
             }
           }
         }
@@ -53,7 +65,6 @@ export const query = graphql`
 `
 
 const IndexPage = props => {
-  // console.log(props)
   return (
     <Layout>
       <SEO title="Home" />

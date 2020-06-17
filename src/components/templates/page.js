@@ -1,7 +1,9 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { RichText } from "prismic-reactjs"
+import RichText from "./../richText"
+
 import Layout from "../layout"
+import SliceZone from "../sliceZone"
 
 export const query = graphql`
   query PageQuery($id: String) {
@@ -15,6 +17,31 @@ export const query = graphql`
               id
               uid
             }
+            body {
+              ... on PRISMIC_PageBodyCall_to_action_grid {
+                type
+                label
+                fields {
+                  call_to_action_title
+                  content
+                  featured_image
+                  button_label
+                  button_destination {
+                    _linkType
+                    ... on PRISMIC_Contact_page {
+                      form_title
+                      form_description
+                      _meta {
+                        uid
+                      }
+                    }
+                  }
+                }
+                primary {
+                  section_title
+                }
+              }
+            }
           }
         }
       }
@@ -23,15 +50,25 @@ export const query = graphql`
 `
 
 const Page = props => {
-  //   console.log(props)
+  console.log(props)
 
-  const pageTitle = props.data.prismic.allPages.edges[0].node.page_title
-  const content = props.data.prismic.allPages.edges[0].node.content
+  if (!props) return null
+
+  const docRes = props.data.prismic.allPages.edges[0].node
+
+  const pageTitle = docRes.page_title
+  const content = docRes.content
+  const bodyRes = docRes.body
+
+  const doc = props.data.prismic.allPages
+  if (!doc) return null
 
   return (
-    <Layout>
-      <h1>{RichText.asText(pageTitle)}</h1>
+    <Layout className="yes">
+      <RichText render={pageTitle} />
       <RichText render={content} />
+
+      {!!bodyRes && <SliceZone body={bodyRes} />}
     </Layout>
   )
 }

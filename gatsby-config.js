@@ -9,6 +9,7 @@ module.exports = {
       resolve: `gatsby-source-prismic-graphql`,
       options: {
         repositoryName: "gb-ps-ud-jtc",
+        preview: false,
         pages: [
           {
             type: "Page", // has to be a capital p for custom (page) types from prismic
