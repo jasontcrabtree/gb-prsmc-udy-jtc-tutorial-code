@@ -5,19 +5,19 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
-    "gatsby-plugin-styled-components",
+    'gatsby-plugin-styled-components',
     {
       resolve: `gatsby-source-prismic-graphql`,
       options: {
-        repositoryName: "gb-ps-ud-jtc",
-        path: "/",
+        repositoryName: 'gb-ps-ud-jtc',
+        path: '/',
         preview: false,
         pages: [
           {
-            type: "Page", // has to be a capital p for custom (page) types from prismic
-            match: "/:uid", // sets the slug based on slug uid. /:uid references the prismic uid field, based on the API ID,
-            path: "/", // can be used for nested slugs too
-            component: require.resolve("./src/components/templates/page.js"),
+            type: 'Page', // has to be a capital p for custom (page) types from prismic
+            match: '/:uid', // sets the slug based on slug uid. /:uid references the prismic uid field, based on the API ID,
+            path: '/', // can be used for nested slugs too
+            component: require.resolve('./src/components/templates/page.js'),
           },
         ],
       },
@@ -48,8 +48,16 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
     {
-      resolve: "gatsby-plugin-brotli",
+      resolve: 'gatsby-plugin-brotli',
+    },
+    `gatsby-plugin-compression`,
+    {
+      resolve: 'gatsby-plugin-webpack-bundle-analyzer',
+      options: {
+        analyzerPort: 3000,
+        production: true,
+      },
     },
     `gatsby-plugin-netlify`, // make sure to put last in the array
   ],
-}
+};
