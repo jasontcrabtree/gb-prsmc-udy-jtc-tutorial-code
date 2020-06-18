@@ -1,11 +1,10 @@
 import React from "react"
-import PropTypes from "prop-types"
 
 import "./layout.css"
 import { StaticQuery, graphql, Link } from "gatsby"
 import styled from "styled-components"
 
-const navigationQuery = graphql`
+export const navigationQuery = graphql`
   {
     prismic {
       allNavigations {
@@ -53,10 +52,6 @@ const Nav = styled.nav`
     flex-direction: row;
     align-items: center;
   }
-
-  .wordmark {
-    padding-bottom: 8px !important;
-  }
 `
 
 const NavList = styled.ul`
@@ -80,8 +75,14 @@ const NavLink = styled.li`
   margin-left: 24px;
 `
 
-const Layout = ({ children }) => {
-  if (!children) return null
+const Layout = props => {
+  console.log(props)
+  if (!props) return null
+  /*   const prismicContent = props.data.prismic.allNavigations.edges[0]
+  if (!prismicContent) return null */
+
+  /* const document = prismicContent.node */
+  const { children } = props
 
   return (
     <>
@@ -99,7 +100,7 @@ const Layout = ({ children }) => {
                       alt={data.prismic.allNavigations.edges[0].node.logo.alt}
                     />
                   </Logo>
-                  <Wordmark class="wordmark">
+                  <Wordmark className="wordmark">
                     {data.prismic.allNavigations.edges[0].node.wordmark}
                   </Wordmark>
                 </Link>
@@ -125,10 +126,6 @@ const Layout = ({ children }) => {
       <Main>{children}</Main>
     </>
   )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 }
 
 export default Layout

@@ -50,21 +50,20 @@ export const query = graphql`
 `
 
 const Page = props => {
-  console.log(props)
-
   if (!props) return null
 
-  const docRes = props.data.prismic.allPages.edges[0].node
+  const prismicContent = props.data.prismic.allPages.edges[0]
+  if (!prismicContent) return null
 
+  const document = prismicContent.node
+
+  const docRes = document
   const pageTitle = docRes.page_title
   const content = docRes.content
   const bodyRes = docRes.body
 
-  const doc = props.data.prismic.allPages
-  if (!doc) return null
-
   return (
-    <Layout className="yes">
+    <Layout>
       <RichText render={pageTitle} />
       <RichText render={content} />
 

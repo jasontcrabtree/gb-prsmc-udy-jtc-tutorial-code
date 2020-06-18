@@ -11,7 +11,7 @@ const PriceListWrapper = styled.section`
 const PriceList = props => {
   if (!props) return null
 
-  const { title, prices, price } = props
+  const { title, prices } = props
 
   return (
     <PriceListWrapper>

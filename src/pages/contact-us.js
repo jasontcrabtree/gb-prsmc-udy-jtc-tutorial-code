@@ -69,12 +69,16 @@ const ContactUs = props => {
   if (!props) return null
   console.log(props)
 
-  const contactRes = props.data.prismic.allContact_pages.edges[0].node
+  const prismicContent = props.data.prismic.allContact_pages.edges[0]
+  if (!prismicContent) return null
+
+  const document = prismicContent.node
+  if (!document) return null
 
   return (
     <Layout>
-      <RichText render={contactRes.form_title} />
-      <RichText render={contactRes.form_description} />
+      <RichText render={document.form_title} />
+      <RichText render={document.form_description} />
       <Form
         onSubmit={e => e.preventDefault()}
         name="contact-us"
@@ -82,18 +86,20 @@ const ContactUs = props => {
         data-netlify="true"
       >
         <input
+          htmlFor="hidden"
           type="hidden"
           name="form-name"
           value="contact-us"
           action="/contact-success"
         />
-        {contactRes.form_fields.map((field, i) => {
+        {document.form_fields.map((field, i) => {
           if (field.field_type === "textarea") {
             return (
               <div key={i}>
-                <label htmlFor={field.field_name}>
+                <label name={field.field_name} htmlFor={field.field_name}>
                   {field.field_name}
                   <textarea
+                    id={field.field_name}
                     required={field.required === "Yes"}
                     placeholder={field.field_name}
                   />
@@ -106,6 +112,7 @@ const ContactUs = props => {
                 <label htmlFor={field.field_name}>
                   {field.field_name}
                   <input
+                    id={field.field_name}
                     required={field.required === "Yes"}
                     placeholder={field.field_name}
                     type={field.field_type}
@@ -115,7 +122,7 @@ const ContactUs = props => {
             )
           }
         })}
-        <Button />
+        <Button role="button" aria-label="Submit" />
       </Form>
     </Layout>
   )

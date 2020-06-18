@@ -7,6 +7,7 @@ const SliceZone = props => {
   const { body } = props
 
   if (!props) return null
+
   if (!body) return null
 
   console.log(props)

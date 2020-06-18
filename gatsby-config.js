@@ -9,6 +9,7 @@ module.exports = {
       resolve: `gatsby-source-prismic-graphql`,
       options: {
         repositoryName: "gb-ps-ud-jtc",
+        path: "/",
         preview: false,
         pages: [
           {
