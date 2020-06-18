@@ -78,7 +78,12 @@ const ContactUs = props => {
     <Layout>
       <RichText render={document.form_title} />
       <RichText render={document.form_description} />
-      <Form name="contact-us" method="POST" data-netlify="true">
+      <Form
+        method="post"
+        name="contact-us"
+        form-name="contact-us"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field">
         <input
           aria-label="hidden"
           htmlFor="hidden"
@@ -94,6 +99,7 @@ const ContactUs = props => {
                 <label name={field.field_name} htmlFor={field.field_name}>
                   {field.field_name}
                   <textarea
+                    name={field.field_name}
                     id={field.field_name}
                     required={field.required === 'Yes'}
                     placeholder={field.field_name}
@@ -105,9 +111,10 @@ const ContactUs = props => {
           } else {
             return (
               <div key={i}>
-                <label htmlFor={field.field_name}>
+                <label name={field.field_name} htmlFor={field.field_name}>
                   {field.field_name}
                   <input
+                    name={field.field_name}
                     aria-label={field.field_name}
                     id={field.field_name}
                     required={field.required === 'Yes'}
