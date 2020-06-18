@@ -5,7 +5,7 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
-    `gatsby-plugin-styled-components`,
+    "gatsby-plugin-styled-components",
     {
       resolve: `gatsby-source-prismic-graphql`,
       options: {
