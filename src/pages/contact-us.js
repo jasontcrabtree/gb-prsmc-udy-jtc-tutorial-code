@@ -78,11 +78,7 @@ const ContactUs = props => {
     <Layout>
       <RichText render={document.form_title} />
       <RichText render={document.form_description} />
-      <Form
-        onSubmit={e => e.preventDefault()}
-        name="contact-us"
-        method="POST"
-        data-netlify="true">
+      <Form name="contact-us" method="POST" data-netlify="true">
         <input
           aria-label="hidden"
           htmlFor="hidden"
