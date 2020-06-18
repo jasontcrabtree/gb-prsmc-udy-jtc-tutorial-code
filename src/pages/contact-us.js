@@ -1,8 +1,8 @@
-import React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import styled from "styled-components"
-import RichText from "./../components/richText"
+import React from 'react';
+import { graphql } from 'gatsby';
+import Layout from '../components/layout';
+import styled from 'styled-components';
+import RichText from './../components/richText';
 
 export const query = graphql`
   {
@@ -22,7 +22,7 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
 const Form = styled.form`
   padding: 2rem 4rem;
@@ -47,13 +47,13 @@ const Form = styled.form`
   label {
     font-weight: 500;
   }
-`
+`;
 
 const Button = styled.input.attrs({
-  type: "submit",
-  value: "Submit",
-  role: "button",
-  ariaLabel: "Submit",
+  type: 'submit',
+  value: 'Submit',
+  role: 'button',
+  ariaLabel: 'Submit',
 })`
   border: 1px solid hotpink;
   background: hotpink;
@@ -63,17 +63,16 @@ const Button = styled.input.attrs({
     background: #fa41b3;
     cursor: pointer;
   }
-`
+`;
 
 const ContactUs = props => {
-  if (!props) return null
-  console.log(props)
+  if (!props) return null;
 
-  const prismicContent = props.data.prismic.allContact_pages.edges[0]
-  if (!prismicContent) return null
+  const prismicContent = props.data.prismic.allContact_pages.edges[0];
+  if (!prismicContent) return null;
 
-  const document = prismicContent.node
-  if (!document) return null
+  const document = prismicContent.node;
+  if (!document) return null;
 
   return (
     <Layout>
@@ -83,9 +82,9 @@ const ContactUs = props => {
         onSubmit={e => e.preventDefault()}
         name="contact-us"
         method="POST"
-        data-netlify="true"
-      >
+        data-netlify="true">
         <input
+          aria-label="hidden"
           htmlFor="hidden"
           type="hidden"
           name="form-name"
@@ -93,39 +92,41 @@ const ContactUs = props => {
           action="/contact-success"
         />
         {document.form_fields.map((field, i) => {
-          if (field.field_type === "textarea") {
+          if (field.field_type === 'textarea') {
             return (
               <div key={i}>
                 <label name={field.field_name} htmlFor={field.field_name}>
                   {field.field_name}
                   <textarea
                     id={field.field_name}
-                    required={field.required === "Yes"}
+                    required={field.required === 'Yes'}
                     placeholder={field.field_name}
+                    aria-label={field.field_name}
                   />
                 </label>
               </div>
-            )
+            );
           } else {
             return (
               <div key={i}>
                 <label htmlFor={field.field_name}>
                   {field.field_name}
                   <input
+                    aria-label={field.field_name}
                     id={field.field_name}
-                    required={field.required === "Yes"}
+                    required={field.required === 'Yes'}
                     placeholder={field.field_name}
                     type={field.field_type}
                   />
                 </label>
               </div>
-            )
+            );
           }
         })}
         <Button role="button" aria-label="Submit" />
       </Form>
     </Layout>
-  )
-}
+  );
+};
 
-export default ContactUs
+export default ContactUs;

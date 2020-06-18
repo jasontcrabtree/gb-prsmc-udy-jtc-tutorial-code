@@ -1,8 +1,8 @@
-import React from "react"
+import React from 'react';
 
-import "./layout.css"
-import { StaticQuery, graphql, Link } from "gatsby"
-import styled from "styled-components"
+import './layout.css';
+import { StaticQuery, graphql, Link } from 'gatsby';
+import styled from 'styled-components';
 
 export const navigationQuery = graphql`
   {
@@ -32,13 +32,13 @@ export const navigationQuery = graphql`
       }
     }
   }
-`
+`;
 
 const Main = styled.main`
   margin: 0 auto;
   max-width: 880px;
   padding: 1rem 1rem 4.8rem;
-`
+`;
 
 const Nav = styled.nav`
   margin: 0px auto;
@@ -52,37 +52,36 @@ const Nav = styled.nav`
     flex-direction: row;
     align-items: center;
   }
-`
+`;
 
 const NavList = styled.ul`
   margin-left: auto;
   display: flex;
-`
+`;
 
 const Wordmark = styled.span`
   font-weight: bold;
-`
+`;
 
 const Logo = styled.span`
   margin-right: 4px;
   vertical-align: center;
   height: 20px;
   width: 20px;
-`
+`;
 
 const NavLink = styled.li`
   list-style: none;
   margin-left: 24px;
-`
+`;
 
 const Layout = props => {
-  console.log(props)
-  if (!props) return null
+  if (!props) return null;
   /*   const prismicContent = props.data.prismic.allNavigations.edges[0]
   if (!prismicContent) return null */
 
   /* const document = prismicContent.node */
-  const { children } = props
+  const { children } = props;
 
   return (
     <>
@@ -90,7 +89,6 @@ const Layout = props => {
         <StaticQuery
           query={`${navigationQuery}`}
           render={data => {
-            // console.log(data)
             return (
               <>
                 <Link to="/" className="home-link">
@@ -113,19 +111,19 @@ const Layout = props => {
                             {link.label}
                           </Link>
                         </NavLink>
-                      )
-                    }
+                      );
+                    },
                   )}
                 </NavList>
               </>
-            )
+            );
           }}
         />
       </Nav>
 
       <Main>{children}</Main>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

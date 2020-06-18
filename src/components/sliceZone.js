@@ -1,21 +1,17 @@
-import React from "react"
-import Hero from "./hero"
-import CallToActionGrid from "./callToActionGrid"
-import PriceList from "./priceList"
+import React from 'react';
+import Hero from './hero';
+import CallToActionGrid from './callToActionGrid';
+import PriceList from './priceList';
 
 const SliceZone = props => {
-  const { body } = props
+  if (!props) return null;
 
-  if (!props) return null
-
-  if (!body) return null
-
-  console.log(props)
+  const { body } = props;
 
   return (
     <div>
       {body.map((bodyContent, i) => {
-        if (bodyContent.type === "hero") {
+        if (bodyContent.type === 'hero') {
           return (
             <Hero
               key={i}
@@ -23,29 +19,29 @@ const SliceZone = props => {
               content={bodyContent.primary.hero_subheading}
               backGroundImage={bodyContent.primary.hero_image.url}
             />
-          )
-        } else if (bodyContent.type === "call_to_action_grid") {
+          );
+        } else if (bodyContent.type === 'call_to_action_grid') {
           return (
             <CallToActionGrid
               key={i}
               callToActions={bodyContent.fields}
               title={bodyContent.primary.section_title}
             />
-          )
-        } else if (bodyContent.type === "price_list") {
+          );
+        } else if (bodyContent.type === 'price_list') {
           return (
             <PriceList
               key={i}
               prices={bodyContent.fields}
               title={bodyContent.primary.title}
             />
-          )
+          );
         } else {
-          return null
+          return null;
         }
       })}
     </div>
-  )
-}
+  );
+};
 
-export default SliceZone
+export default SliceZone;
