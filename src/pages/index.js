@@ -69,6 +69,7 @@ const IndexPage = props => {
 
   const prismicContent = props.data.prismic.allHomepages.edges[0]
   const document = prismicContent.node
+  if (!document) return null
 
   return (
     <Layout>

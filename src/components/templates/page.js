@@ -53,8 +53,8 @@ const Page = props => {
   if (!props) return null
 
   const prismicContent = props.data.prismic.allPages.edges[0]
-
   const document = prismicContent.node
+  if(!document) return null
 
   const pageTitle = document.page_title
   const content = document.content
