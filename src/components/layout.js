@@ -77,11 +77,8 @@ const NavLink = styled.li`
 
 const Layout = props => {
   if (!props) return null;
-  /*   const prismicContent = props.data.prismic.allNavigations.edges[0]
-  if (!prismicContent) return null */
-
-  /* const document = prismicContent.node */
   const { children } = props;
+
 
   return (
     <>
@@ -89,21 +86,22 @@ const Layout = props => {
         <StaticQuery
           query={`${navigationQuery}`}
           render={data => {
+            const staticData = data.prismic.allNavigations.edges[0].node;
             return (
               <>
                 <Link to="/" className="home-link">
                   <Logo>
                     <img
-                      src={data.prismic.allNavigations.edges[0].node.logo.url}
-                      alt={data.prismic.allNavigations.edges[0].node.logo.alt}
+                      src={staticData.logo.url}
+                      alt={staticData.logo.alt}
                     />
                   </Logo>
                   <Wordmark className="wordmark">
-                    {data.prismic.allNavigations.edges[0].node.wordmark}
+                    {staticData.wordmark}
                   </Wordmark>
                 </Link>
                 <NavList>
-                  {data.prismic.allNavigations.edges[0].node.navigation_links.map(
+                  {staticData.navigation_links.map(
                     link => {
                       return (
                         <NavLink key={link.link._meta.uid}>
@@ -120,7 +118,6 @@ const Layout = props => {
           }}
         />
       </Nav>
-
       <Main>{children}</Main>
     </>
   );

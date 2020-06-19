@@ -68,14 +68,14 @@ const Button = styled.input.attrs({
 const ContactUs = props => {
   if (!props) return null;
 
+  // destruct props > data > prismic > query response to use in components
   const prismicContent = props.data.prismic.allContact_pages.edges[0];
-  if (!prismicContent) return null;
-
   const document = prismicContent.node;
-  if (!document) return null;
+
 
   return (
     <Layout>
+      {/* render form_title and form_description from in document */}
       <RichText render={document.form_title} />
       <RichText render={document.form_description} />
       <Form
@@ -92,6 +92,7 @@ const ContactUs = props => {
           value="contact-us"
           action="/contact-success"
         />
+        {/* map over form_fields within document */}
         {document.form_fields.map((field, i) => {
           if (field.field_type === 'textarea') {
             return (

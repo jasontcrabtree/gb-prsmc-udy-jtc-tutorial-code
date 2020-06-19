@@ -18,8 +18,8 @@ const HeroWrapper = styled.header`
 
 const Hero = props => {
   if (!props) return null
-
   const { title, content, backGroundImage } = props
+
   return (
     <HeroWrapper backGroundImage={backGroundImage}>
       <div>
