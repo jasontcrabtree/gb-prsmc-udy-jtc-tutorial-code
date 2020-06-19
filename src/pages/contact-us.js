@@ -70,6 +70,7 @@ const ContactUs = props => {
 
   // destruct props > data > prismic > query response to use in components
   const prismicContent = props.data.prismic.allContact_pages.edges[0];
+  if (!prismicContent) return null;
   const document = prismicContent.node;
   if (!document) return null
 
